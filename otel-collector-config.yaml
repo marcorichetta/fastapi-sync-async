@@ -1,0 +1,18 @@
+receivers:
+    otlp:
+        protocols:
+            grpc:
+            http:
+
+exporters:
+    logging:
+        logLevel: debug
+    otlp/tempo:
+        endpoint: tempo:4317
+        insecure: true
+
+service:
+    pipelines:
+        traces:
+            receivers: [otlp]
+            exporters: [logging, otlp/tempo]
